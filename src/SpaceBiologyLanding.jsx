@@ -45,7 +45,7 @@ function WhatIfChat() {
     setLoading(true);
     setAnswer("");
     try {
-      const res = await fetch("http://localhost:5001/api/whatif", {
+      const res = await fetch("/api/whatif", { //http://localhost:5001/api/whatif
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ question }),

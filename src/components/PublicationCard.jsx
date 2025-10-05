@@ -25,7 +25,7 @@ export default function PublicationCard({ item }) {
 
   // Use env override if provided, otherwise default to localhost dev URL
   const API_URL =
-    import.meta.env.VITE_SUMMARY_API_URL || "http://localhost:5001/api/summarize";
+    import.meta.env.VITE_SUMMARY_API_URL || "/api/summarize";//http://localhost:5001/api/summarize
 
   const handleGenerate = async () => {
     setLoading(true);
@@ -70,7 +70,7 @@ export default function PublicationCard({ item }) {
   
     try {
       // ✅ Use your Node server API (adjust port if needed)
-      const API_URL = "http://localhost:5001/api/generate-story";
+      const API_URL = "/api/generate-story"; //http://localhost:5001/api/generate-story
   
       const r = await fetch(API_URL, {
         method: "POST",
