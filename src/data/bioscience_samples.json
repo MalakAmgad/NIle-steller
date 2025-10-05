@@ -1,0 +1,54 @@
+[
+  {
+    "id": "PUB-001",
+    "title": "Arabidopsis Root Growth in Microgravity",
+    "year": 2021,
+    "mission": "ISS",
+    "subject": "Flora & Fauna",
+    "organism": "Arabidopsis thaliana",
+    "instrument": "Veggie Plant Growth System",
+    "outcome": "Altered auxin transport; root skewing increased.",
+    "doi": "10.1234/spacebio.2021.auxin",
+    "orbitAltKm": 420,
+    "inclination": 51.6
+  },
+  {
+    "id": "PUB-002",
+    "title": "Yeast Metabolic Adaptation to Spaceflight",
+    "year": 2019,
+    "mission": "Space Shuttle Legacy",
+    "subject": "Microbiology",
+    "organism": "Saccharomyces cerevisiae",
+    "instrument": "Microbioreactor",
+    "outcome": "Up\u2011regulation of stress response genes.",
+    "doi": "10.1234/spacebio.2019.yeast",
+    "orbitAltKm": 350,
+    "inclination": 28.5
+  },
+  {
+    "id": "PUB-003",
+    "title": "Mouse Bone Density Under Microgravity",
+    "year": 2023,
+    "mission": "ISS",
+    "subject": "Flora & Fauna",
+    "organism": "Mus musculus",
+    "instrument": "Rodent Research Facility",
+    "outcome": "Significant osteoclast activation; mitigated by drug X.",
+    "doi": "10.1234/spacebio.2023.bone",
+    "orbitAltKm": 410,
+    "inclination": 51.6
+  },
+  {
+    "id": "PUB-004",
+    "title": "Bacterial Biofilm Formation in Orbit",
+    "year": 2020,
+    "mission": "ISS",
+    "subject": "Microbiology",
+    "organism": "Pseudomonas aeruginosa",
+    "instrument": "Fluid Dynamics Lab",
+    "outcome": "Enhanced biofilm thickness; morphology changes.",
+    "doi": "10.1234/spacebio.2020.biofilm",
+    "orbitAltKm": 400,
+    "inclination": 51.6
+  }
+]
