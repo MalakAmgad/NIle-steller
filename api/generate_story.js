@@ -8,8 +8,8 @@ export default async function handler(req, res) {
     if (!theme && !link) return res.status(400).json({ error: "Missing 'theme' or 'link'" });
 
     const storyPrompt = link
-      ? `Write a cinematic 3-part sci-fi story inspired by the research paper at this link: ${link}.`
-      : `Write a 3-part cinematic sci-fi story about: ${theme}.`;
+      ? `Write a cinematic 3-part sci-fi story inspired by the research paper at this link: ${link}. Focus on space biology, discovery, and emotional depth.`
+      : `Write a 3-part cinematic sci-fi story about: ${theme}. Include a clear structure (Part 1: Setup, Part 2: Conflict, Part 3: Resolution). Make it immersive and emotionally engaging.`;
 
     const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       method: "POST",
@@ -20,7 +20,7 @@ export default async function handler(req, res) {
       body: JSON.stringify({
         model: "gpt-3.5-turbo",
         messages: [
-          { role: "system", content: "You are a creative science fiction writer blending real space biology with storytelling." },
+          { role: "system", content: "You are a creative science fiction writer blending real NASA biology with imaginative storytelling." },
           { role: "user", content: storyPrompt },
         ],
         temperature: 0.9,
@@ -34,14 +34,16 @@ export default async function handler(req, res) {
     const storyText = data?.choices?.[0]?.message?.content?.trim() || "No story generated.";
     const parts = storyText.split(/\n\s*\n/).filter(Boolean);
 
-    const scenes = parts.map((part, i) => ({
-      part: i + 1,
-      text: part,
-      imageUrl: `https://image.pollinations.ai/prompt/${encodeURIComponent(`scene ${i + 1} ${theme || link}: ${part}`)}?width=1024&height=768&model=flux`
-    }));
+    // Synchronously map to scenes (no async needed)
+    const scenes = parts.map((part, i) => {
+      const encoded = encodeURIComponent(`scene ${i + 1} ${theme || link}: ${part}`);
+      const imageUrl = `https://image.pollinations.ai/prompt/${encoded}?width=1024&height=768&model=flux`;
+      return { part: i + 1, text: part, imageUrl };
+    });
 
     res.status(200).json({ title: theme || link, storyText, scenes });
   } catch (err) {
+    console.error("❌ Story generation failed:", err.message);
     res.status(500).json({ error: "Story generation failed", details: err.message });
   }
 }
