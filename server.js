@@ -179,6 +179,72 @@ process.on('unhandledRejection', (reason, promise) => {
   console.error('💥 Unhandled Rejection at:', promise, 'reason:', reason);
 });
 
+//////
+app.post("/api/generate-story", async (req, res) => {
+  try {
+    const { link, theme } = req.body;
+
+    if (!theme && !link) {
+      return res.status(400).json({ error: "Missing 'theme' or 'link' in request body" });
+    }
+
+    const storyPrompt = link
+      ? `Write a cinematic 3-part sci-fi story inspired by the research paper at this link: ${link}. 
+         Focus on space biology, discovery, and emotional depth.`
+      : `Write a 3-part cinematic sci-fi story about: ${theme}. 
+         Include a clear structure (Part 1: Setup, Part 2: Conflict, Part 3: Resolution).
+         Make it immersive and emotionally engaging.`;
+
+    console.log("🚀 Generating story with prompt:", storyPrompt.slice(0, 150), "...");
+
+    // Call OpenRouter API
+    const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
+        "HTTP-Referer": "http://localhost:5173",
+        "X-Title": "SpaceBio Story Generator",
+      },
+      body: JSON.stringify({
+        model: "gpt-3.5-turbo",
+        messages: [
+          { role: "system", content: "You are a creative science fiction writer who blends real NASA biology with imaginative storytelling." },
+          { role: "user", content: storyPrompt },
+        ],
+        temperature: 0.9,
+        max_tokens: 1000,
+      }),
+    });
+
+    const data = await response.json();
+    console.log("📦 Story generation response:", data);
+
+    if (!response.ok) {
+      throw new Error(`API error ${response.status}: ${JSON.stringify(data)}`);
+    }
+
+    const storyText = data?.choices?.[0]?.message?.content?.trim() || "No story generated.";
+
+    // Split story into parts for visual scenes
+    const parts = storyText.split(/\n\s*\n/).filter(Boolean);
+
+    const scenes = await Promise.all(
+      parts.map(async (part, i) => {
+        const prompt = `scene ${i + 1} ${theme || link}: ${part}`;
+        const encoded = encodeURIComponent(prompt);
+        const imageUrl = `https://image.pollinations.ai/prompt/${encoded}?width=1024&height=768&model=flux`;
+        return { part: i + 1, text: part, imageUrl };
+      })
+    );
+
+    res.json({ title: theme || link, storyText, scenes });
+  } catch (err) {
+    console.error("❌ Story generation failed:", err.message);
+    res.status(500).json({ error: "Story generation failed", details: err.message });
+  }
+});
+
 // Start server with error handling
 app.listen(PORT, () => {
   console.log(`✅ Server running on http://localhost:${PORT}`);

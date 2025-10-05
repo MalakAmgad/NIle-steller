@@ -9,13 +9,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.24.1",
     "@react-three/drei": "^9.114.3",
     "@react-three/fiber": "^8.16.1",
     "body-parser": "^2.2.0",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
-    "framer-motion": "^11.3.31",
+    "framer-motion": "^11.18.2",
     "lucide-react": "^0.453.0",
     "node-fetch": "^3.3.2",
     "openai": "^6.1.0",

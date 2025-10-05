@@ -57,40 +57,45 @@ export default function PublicationCard({ item }) {
   };
 
   // === STORYBOARD (LLM-first with deterministic fallback) ===
+  // === STORYBOARD (LLM-first with deterministic fallback) ===
   const handleStory = async () => {
     // Stop any narration still running (if user opened another card earlier)
     if (typeof window !== "undefined" && "speechSynthesis" in window) {
       window.speechSynthesis.cancel();
     }
-
+  
     setStoryLoading(true);
     setStory(null);
     setScenes(null);
-
+  
     try {
-      // Call our Vercel serverless function
-      const r = await fetch("/api/generate_story", {
+      // ✅ Use your Node server API (adjust port if needed)
+      const API_URL = "http://localhost:5001/api/generate-story";
+  
+      const r = await fetch(API_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ item }), // send the whole paper
+        body: JSON.stringify({
+          link: item.link || item.title || "Unknown NASA research theme",
+        }),
       });
-
+  
       if (r.ok) {
         const data = await r.json();
-        // data = { title, scenes: [{title,text},...], storyText }
-        setStory(data.storyText || null);
-        setScenes(Array.isArray(data.scenes) ? data.scenes : null);
+        // data = { title, storyText, scenes: [{part, text, imageUrl}] }
+        setStory(data.storyText || "");
+        setScenes(Array.isArray(data.scenes) ? data.scenes : []);
         setStoryOpen(true);
         return;
       }
-
+  
       // If API responded with error, fall back to deterministic scenes
-      console.warn("generate_story failed; falling back to local storyboard.");
+      console.warn("generate-story failed; falling back to local storyboard.");
       throw new Error(`HTTP ${r.status}`);
     } catch (err) {
-      // ----- Fallback: deterministic, no-LLM -----
       console.error("Story generation via API failed:", err);
-
+  
+      // ----- Fallback: deterministic local scenes -----
       const bg =
         item.abstract ||
         item.outcome ||
@@ -105,7 +110,7 @@ export default function PublicationCard({ item }) {
       const implications = `Findings inform future ${
         item.subject ? String(item.subject).toLowerCase() : "space biology"
       } research and mission design${item.doi ? ` (DOI: ${item.doi})` : ""}.`;
-
+  
       const fallbackScenes = [
         { title: "Background", text: bg },
         { title: "Objective", text: objective },
@@ -113,7 +118,7 @@ export default function PublicationCard({ item }) {
         { title: "Results", text: results },
         { title: "Implications", text: implications },
       ];
-
+  
       setScenes(fallbackScenes);
       setStory(fallbackScenes.map((s) => `${s.title}: ${s.text}`).join("\n\n"));
       setStoryOpen(true);
@@ -121,6 +126,7 @@ export default function PublicationCard({ item }) {
       setStoryLoading(false);
     }
   };
+
 
   return (
     <>
