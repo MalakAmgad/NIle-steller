@@ -7,7 +7,7 @@ export default async function handler(req, res) {
     const { link, theme } = req.body;
 
     if (!theme && !link) {
-      return res.status(400).json({ error: "Missing 'theme' or 'link' in request body" });
+      return res.status(400).json({ error: "Missing 'theme' or 'link'" });
     }
 
     const storyPrompt = link
@@ -19,7 +19,7 @@ export default async function handler(req, res) {
 
     console.log("🚀 Generating story with prompt:", storyPrompt.slice(0, 150), "...");
 
-    // Call OpenRouter API
+    // Call OpenRouter API using native fetch (Node 18+)
     const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       method: "POST",
       headers: {
@@ -52,7 +52,7 @@ export default async function handler(req, res) {
     // Split story into parts for visual scenes
     const parts = storyText.split(/\n\s*\n/).filter(Boolean);
 
-    // Map scenes (no async needed for Vercel)
+    // Map scenes synchronously
     const scenes = parts.map((part, i) => {
       const encoded = encodeURIComponent(`scene ${i + 1} ${theme || link}: ${part}`);
       const imageUrl = `https://image.pollinations.ai/prompt/${encoded}?width=1024&height=768&model=flux`;
