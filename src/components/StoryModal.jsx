@@ -80,9 +80,13 @@ export default function StoryModal({ open, onClose, title, story, scenes, loadin
                           >
                             <img
                               src={s.imageUrl}
-                              alt={s.title}
-                              className="w-full h-64 object-cover rounded-2xl"
-                            />
+                              alt={s.title || `Scene ${i + 1}`}
+                             className="w-full h-64 object-cover rounded-2xl transition-opacity duration-700"
+                             loading="lazy" // ✅ don’t load all at once
+                             onError={(e) => {
+                            e.currentTarget.src = "/placeholder.png"; // ✅ fallback image
+                            }}
+                           />
                           </motion.div>
                         )}
                         <h3 className="text-2xl font-semibold text-sky-300 uppercase tracking-wide">
