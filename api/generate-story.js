@@ -56,11 +56,15 @@ export default async function handler(req, res) {
     const scenes = parts.map((part, i) => {
       const imagePrompt = `scene ${i + 1} ${theme || link}: ${part}`;
       const encoded = encodeURIComponent(imagePrompt);
-      const imageUrl = <img
-  loading="lazy"
-  src={`https://image.pollinations.ai/prompt/${encodeURIComponent(scene.imagePrompt)}?width=512&height=384&model=flux`}
-  alt={`Scene ${scene.part}`}
-/>
+      const imageUrl = <div className="relative w-full h-64 bg-gray-800 animate-pulse rounded-2xl">
+  <img
+    src={imageUrl}
+    alt="scene"
+    className="absolute inset-0 w-full h-full object-cover rounded-2xl"
+    onError={(e) => e.currentTarget.remove()} 
+  />
+</div>
+
 ;//`https://image.pollinations.ai/prompt/${encoded}?width=256&height=192&model=flux`;
       return { part: i + 1, text: part, imageUrl };
     });
