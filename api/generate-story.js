@@ -54,6 +54,7 @@ export default async function handler(req, res) {
 
     // Map scenes synchronously
     const scenes = parts.map((part, i) => {
+      const imagePrompt = `scene ${i + 1} ${theme || link}: ${part}`;
       const encoded = encodeURIComponent(imagePrompt);
       const imageUrl = `https://image.pollinations.ai/prompt/${encoded}?width=512&height=384&model=flux`;
       return { part: i + 1, text: part, imageUrl };
