@@ -31,7 +31,8 @@ export default async function handler(req, res) {
         messages: [
           {
             role: "system",
-            content: "You are a creative science fiction writer who blends real NASA biology with imaginative storytelling.",
+            content:
+              "You are a creative science fiction writer who blends real NASA biology with imaginative storytelling.",
           },
           { role: "user", content: storyPrompt },
         ],
@@ -52,7 +53,7 @@ export default async function handler(req, res) {
     // Split story into parts for visual scenes
     const parts = storyText.split(/\n\s*\n/).filter(Boolean);
 
-    // Map scenes synchronously
+    // ✅ Map scenes with small image sizes (faster, less timeout risk)
     const scenes = parts.map((part, i) => {
       const imagePrompt = `scene ${i + 1} ${theme || link}: ${part}`;
       const encoded = encodeURIComponent(imagePrompt);
@@ -60,11 +61,7 @@ export default async function handler(req, res) {
       return { part: i + 1, text: part, imageUrl };
     });
 
-
-;//`https://image.pollinations.ai/prompt/${encoded}?width=256&height=192&model=flux`;
-      return { part: i + 1, text: part, imageUrl };
-    });
-
+    // ✅ Return success
     res.status(200).json({ title: theme || link, storyText, scenes });
   } catch (err) {
     console.error("❌ Story generation failed:", err.message);
