@@ -1,8 +1,6 @@
 # NileStellar: Your AI-Powered Biology Search Engine
 
-[![NASA Space Apps Challenge Logo](https://www.nasa.gov/sites/default/files/thumbnails/image/nasa-logo-web-rgb.png)](https://www.nasa.gov)
-
-
+🌌
 **U.S. Government Shutdown Update:** The 2025 NASA Space Apps Challenge will take place as scheduled on **October 4–5**. Support continues on [Space Apps Connect](https://spaceappschallenge.org) and via email.
 
 NASA Space Apps is funded by NASA's Earth Science Division through a contract with Booz Allen Hamilton, Mindgrub, and SecondMuse.
