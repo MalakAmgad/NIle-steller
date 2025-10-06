@@ -1,4 +1,4 @@
-export default async function handler(req, res) {
+so what do i do in here export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method Not Allowed" });
   }
@@ -31,8 +31,7 @@ export default async function handler(req, res) {
         messages: [
           {
             role: "system",
-            content:
-              "You are a creative science fiction writer who blends real NASA biology with imaginative storytelling.",
+            content: "You are a creative science fiction writer who blends real NASA biology with imaginative storytelling.",
           },
           { role: "user", content: storyPrompt },
         ],
@@ -53,15 +52,13 @@ export default async function handler(req, res) {
     // Split story into parts for visual scenes
     const parts = storyText.split(/\n\s*\n/).filter(Boolean);
 
-    // ✅ Map scenes with small image sizes (faster, less timeout risk)
+    // Map scenes synchronously
     const scenes = parts.map((part, i) => {
-      const imagePrompt = `scene ${i + 1} ${theme || link}: ${part}`;
-      const encoded = encodeURIComponent(imagePrompt);
-      const imageUrl = `https://image.pollinations.ai/prompt/${encoded}?width=512&height=384&model=flux`;
+      const encoded = encodeURIComponent(`scene ${i + 1} ${theme || link}: ${part}`);
+      const imageUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?width=1024&height=768&model=flux`;
       return { part: i + 1, text: part, imageUrl };
     });
 
-    // ✅ Return success
     res.status(200).json({ title: theme || link, storyText, scenes });
   } catch (err) {
     console.error("❌ Story generation failed:", err.message);
