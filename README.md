@@ -43,7 +43,6 @@ NileStellar is an AI-powered platform that consolidates scattered biology resear
 
 [![Demo 3 Placeholder](https://github.com/MalakAmgad/NIle-steller/blob/main/public/story2/Untitled%20video%20-%20Made%20with%20Clipchamp%20(3).gif)]
 
-> Replace `VIDEO_ID_X` with your actual YouTube or hosted demo links.
 ### Demo Video: Dashboard & Paper Summarization
 [![Demo Video](https://img.icons8.com/ios-filled/100/000000/video.png)](https://drive.google.com/drive/folders/1TGrljaGo9oILZW8nBshEc6FEejBzcJIT)
 
