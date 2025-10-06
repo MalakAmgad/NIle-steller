@@ -1,6 +1,6 @@
 # NileStellar: Your AI-Powered Biology Search Engine
 
-[![NASA Space Apps Challenge Logo](https://www.nasa.gov/sites/default/files/thumbnails/image/nasa-logo-web-rgb.png)](#)
+[![NASA Space Apps Challenge Logo](https://www.bing.com/images/search?view=detailV2&ccid=%2bEqb6flO&id=8C9AA4ADC000F1BDA9675CF04C98199DE193D915&thid=OIP.-Eqb6flOJv8ups6Pmlh2wQHaGM&mediaurl=https%3a%2f%2fupload.wikimedia.org%2fwikipedia%2fcommons%2fthumb%2fe%2fe5%2fNASA_logo.svg%2f2449px-NASA_logo.svg.png&cdnurl=https%3a%2f%2fth.bing.com%2fth%2fid%2fR.f84a9be9f94e26ff2ea6ce8f9a5876c1%3frik%3dFdmT4Z0ZmEzwXA%26pid%3dImgRaw%26r%3d0&exph=2049&expw=2449&q=nasa+logo+link&FORM=IRPRST&ck=5A90408F018FAB3651D30FC604CA8E1D&selectedIndex=0&itb=1&idpp=overlayview&ajaxhist=0&ajaxserp=0)](#)
 
 **U.S. Government Shutdown Update:** The 2025 NASA Space Apps Challenge will take place as scheduled on **October 4–5**. Support continues on [Space Apps Connect](https://spaceappschallenge.org) and via email.
 
