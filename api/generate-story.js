@@ -56,7 +56,13 @@ export default async function handler(req, res) {
     const scenes = parts.map((part, i) => {
       const imagePrompt = `scene ${i + 1} ${theme || link}: ${part}`;
       const encoded = encodeURIComponent(imagePrompt);
-      const imageUrl = `https://image.pollinations.ai/prompt/${encoded}?width=256&height=192&model=flux`;
+      const imageUrl = <img
+  src={`https://image.pollinations.ai/prompt/${encodeURIComponent(scene.imagePrompt)}?width=512&height=384&model=flux`}
+  alt={`Scene ${scene.part}`}
+  className="w-full h-64 object-cover rounded-2xl"
+  onError={(e) => { e.currentTarget.src = "/placeholder.png"; }} // fallback
+/>
+;//`https://image.pollinations.ai/prompt/${encoded}?width=256&height=192&model=flux`;
       return { part: i + 1, text: part, imageUrl };
     });
 
